@@ -3,13 +3,14 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
+const port = process.env.PORT || 3000;
+
 var app = express();
 
 //the following allows partial html templates
 hbs.registerPartials(__dirname + '/views/partials')
 //the following tells express what view engine to use.
 app.set('view engine', 'hbs');
-
 
 app.use((req, res, next) => {
   var now = new Date().toString();
@@ -24,12 +25,12 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
-  res.render('maintenance.hbs', {
-    pageTitle: 'Maintenance',
-    welcomeMessage: 'Undergoing maintenance.  We will be back soon.'
-  });
-});
+// app.use((req, res, next) => {
+//   res.render('maintenance.hbs', {
+//     pageTitle: 'Maintenance',
+//     welcomeMessage: 'Undergoing maintenance.  We will be back soon.'
+//   });
+// });
 
 // app.get('/maintenance', (req, res) => {
 //   res.render('maintenance.hbs', {
@@ -75,7 +76,6 @@ app.get('/bad', (req, res) => {
   });
 });
 
-
-app.listen(3000, () => {
-  console.log('Server is up on port 3000.');
+app.listen(port, () => {
+  console.log(`Server is up on port ${port}.`);
 });
